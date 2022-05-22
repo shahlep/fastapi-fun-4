@@ -1,21 +1,13 @@
-from pydantic import BaseModel, Field
-from typing import Optional, List
 from fastapi import FastAPI
-from databases import books
-
-
-class Books(BaseModel):
-    name: str
-    author: str
-    genre: str
-    price: float
-    ebook: bool
-    status: Optional[str] = None
-
+import uvicorn
 
 app = FastAPI()
 
 
-@app.get("/")
-def get_all_books():
-    return f"here is all the books"
+@app.get('/status')
+def check_status():
+    return f'Hello World!'
+
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)
