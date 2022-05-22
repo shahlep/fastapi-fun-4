@@ -26,6 +26,12 @@ class Student(BaseModel):
     gender: Optional[Gender]
 
 
+class Student_info(Student):
+    id: int
+    department = Department
+    name = str
+
+
 @app.get('/status')
 def check_status():
     return f'Hello World!'
@@ -36,7 +42,7 @@ def check_students(student_id: int, department: Department, gender: str = None):
     return f'list of students'
 
 
-@app.post('/students')
+@app.post('/students',response_model=Student)
 def create_student(student: Student):
     print(student)
     return student
