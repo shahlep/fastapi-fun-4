@@ -8,14 +8,14 @@ app = FastAPI()
 
 
 class Department(str, Enum):
-    IT = 'IT'
-    Programming = 'Programming'
-    Database = 'Database'
+    IT = "IT"
+    Programming = "Programming"
+    Database = "Database"
 
 
 class Gender(str, Enum):
-    Male = 'Male'
-    Female = 'Female'
+    Male = "Male"
+    Female = "Female"
 
 
 class Student(BaseModel):
@@ -32,21 +32,21 @@ class Student_info(Student):
     name = str
 
 
-@app.get('/status')
+@app.get("/status")
 def check_status():
-    return f'Hello World!'
+    return f"Hello World!"
 
 
-@app.get('students/{student_id}')
+@app.get("students/{student_id}")
 def check_students(student_id: int, department: Department, gender: str = None):
-    return f'list of students'
+    return f"list of students"
 
 
-@app.post('/students',response_model=Student)
+@app.post("/students", response_model=Student)
 def create_student(student: Student):
     print(student)
     return student
 
 
-if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port=8000)
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
