@@ -1,15 +1,15 @@
-import datetime as datetime
-import sqlalchemy as sqlalchemy
-import sqlalchemy.orm as orm
-import passlib.hash as hash
-import database as database
+import datetime as _datetime
+import sqlalchemy as _sqlalchemy
+import sqlalchemy.orm as _orm
+import passlib.hash as _hash
+import database as _database
 
 
-class UserModel(database.Base):
+class UserModel(_database.Base):
     __tablename__ = "users"
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, index=True)
-    email = sqlalchemy.Column(sqlalchemy.String, unique=True, index=True)
-    name = sqlalchemy.Column(sqlalchemy.String)
-    phone = sqlalchemy.Column(sqlalchemy.String)
-    password_hash = sqlalchemy.Column(sqlalchemy.String)
-    created_at = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.utcnow())
+    id = _sqlalchemy.Column(_sqlalchemy.Integer, primary_key=True, index=True)
+    email = _sqlalchemy.Column(_sqlalchemy.String, unique=True, index=True)
+    name = _sqlalchemy.Column(_sqlalchemy.String)
+    phone = _sqlalchemy.Column(_sqlalchemy.String)
+    password_hash = _sqlalchemy.Column(_sqlalchemy.String)
+    created_at = _sqlalchemy.Column(_sqlalchemy.DateTime, default=_datetime.datetime.utcnow())
