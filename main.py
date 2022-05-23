@@ -23,7 +23,7 @@ class Student(BaseModel):
     department: Department
     name: str
     age: int
-    gender: Optional[Gender]
+    gender: Optional[Gender] = None
 
 
 class Student_info(Student):
