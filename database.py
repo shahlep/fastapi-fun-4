@@ -4,7 +4,7 @@ import sqlalchemy.orm as orm
 
 DB_URL = "sqlite:///./test.db"
 
-engine = sqlalchemy.create_engine(DB_URL, connect_args={"check_same_thread"})
+engine = sqlalchemy.create_engine(DB_URL, connect_args={"check_same_thread": False})
 
 SessionLocal = orm.sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
