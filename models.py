@@ -13,6 +13,9 @@ class UserModel(_database.Base):
     phone = _sqlalchemy.Column(_sqlalchemy.String)
     password_hash = _sqlalchemy.Column(_sqlalchemy.String)
     created_at = _sqlalchemy.Column(_sqlalchemy.DateTime, default=_datetime.datetime.utcnow())
+    # relationship
+    posts = _orm.relationship("Post", back_populates="user")
+
 
 class PostModel(_database.Base):
     __tablename__ = "posts"
@@ -22,3 +25,5 @@ class PostModel(_database.Base):
     content = _sqlalchemy.Column(_sqlalchemy.String)
     created_at = _sqlalchemy.Column(_sqlalchemy.DateTime, default=_datetime.datetime.utcnow())
 
+    # Relationship
+    user = _orm.relationship("User", back_populates="posts")
