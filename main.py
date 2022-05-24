@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.post("/users")
 async def register_user(
-    user: _schemas.UserRequest, db: _orm.Session = Depends(_services.get_db())
+        user: _schemas.UserRequest, db: _orm.Session = Depends(_services.get_db())
 ):
     db_user = await _services.get_user_by_email(email=user.email, db=db)
     if db_user:
@@ -17,6 +17,8 @@ async def register_user(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User already exist"
         )
     # create the user and return a token
+    nw_user = await _services.create_user(user=user, db=db)
+    return await _services.create_token(user=nw_user)
 
 
 if __name__ == "__main__":
