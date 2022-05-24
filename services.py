@@ -32,18 +32,17 @@ async def create_user(user: _schemas.UserRequest, db: _orm.Session):
         isValid = _email_validator.validate_email(email=user.email)
         email = isValid.email
     except _email_validator.EmailNotValidError:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="email is not in correct format")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="email is not in correct format",
+        )
 
     # convert password to hashed password
     hashed_password = _hash.bcrypt.hash(user.password)
 
     user_obj = _models.UserModel(
-        email = email,
-        name = user.name,
-        phone = user.phone,
-        password_hash = hashed_password
-        )
+        email=email, name=user.name, phone=user.phone, password_hash=hashed_password
+    )
     db.add(user_obj)
     db.commit()
     db.refresh(user_obj)
