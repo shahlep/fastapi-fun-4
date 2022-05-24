@@ -21,3 +21,24 @@ class UserResponse(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class PostBase(BaseModel):
+    title: str
+    content: str
+
+
+class PostRequest(PostBase):
+    pass
+
+    class Config:
+        orm_mode = True
+
+
+class PostResponse(PostBase):
+    id: int
+    user_id: int
+    created_at: _datetime.datetime
+
+    class Config:
+        orm_mode = True
