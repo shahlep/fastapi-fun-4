@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException, status
 import uvicorn
 import sqlalchemy.orm as _orm
 import schemas as _schemas
@@ -8,9 +8,12 @@ app = FastAPI()
 
 
 @app.post('/users')
-def register_user(user: _schemas.UserRequest,
-                  db: _orm.Session = Depends(_services.get_db())):
-    pass
+async def register_user(user: _schemas.UserRequest,
+                        db: _orm.Session = Depends(_services.get_db())):
+    db_user = await _services.get_user_by_email(email=user.email,db=db)
+    if db_user:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="User already exist")
+
 
 
 if __name__ == "__main__":
