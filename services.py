@@ -5,6 +5,8 @@ import models as _models
 import schemas as _schemas
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
+import jwt as _jwt
+import env as _env
 
 
 def create_db():
@@ -47,3 +49,15 @@ async def create_user(user: _schemas.UserRequest, db: _orm.Session):
     db.commit()
     db.refresh(user_obj)
     return user_obj
+
+
+async def create_token(user: _models.UserModel):
+    # user model to user schema
+    user_schema = _schemas.UserBase.from_orm(user)
+    # convert obj to dictionary
+    user_dict = user_schema.dict()
+    del user_dict['created_at']
+
+    token = _jwt.encode(user_dict, _env.JWT_SECRET)
+
+    return dict(access_token=token, token_type="bearer")

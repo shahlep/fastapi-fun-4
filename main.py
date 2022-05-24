@@ -16,6 +16,7 @@ async def register_user(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User already exist"
         )
+    # create the user and return a token
 
 
 if __name__ == "__main__":
