@@ -5,7 +5,6 @@ import sqlalchemy.orm as _orm
 import schemas as _schemas
 import services as _services
 
-
 app = FastAPI()
 
 
@@ -28,7 +27,17 @@ async def login(
     form_data: security.OAuth2PasswordRequestForm = Depends(),
     db: _orm.Session = Depends(_services.get_db),
 ):
-    pass
+    db_user = await _services.login(
+        email=form_data.username, password=form_data.password, db=db
+    )
+    # Invalid login then throw exception
+    if not db_user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid login credentials!",
+        )
+    # create and return the token
+    return await _services.create_token(db_user)
 
 
 if __name__ == "__main__":
