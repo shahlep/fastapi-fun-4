@@ -61,3 +61,16 @@ async def create_token(user: _models.UserModel):
     token = _jwt.encode(user_dict, _env.JWT_SECRET)
 
     return dict(access_token=token, token_type="bearer")
+
+
+async def login(email: str, password: str, db: _orm.Session):
+    db_user = await get_user_by_email(email=email, db=db)
+
+    # return False if no user with given email found
+    if not db_user:
+        return False
+    # return False if no user with given password found
+    if not db_user.password_verification(password=password):
+        return False
+
+    return db_user
