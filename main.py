@@ -1,8 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, security
 import uvicorn
 import sqlalchemy.orm as _orm
+from fastapi.security import OAuth2PasswordRequestForm
+
 import schemas as _schemas
 import services as _services
+
 
 app = FastAPI()
 
@@ -19,6 +22,11 @@ async def register_user(
     # create the user and return a token
     nw_user = await _services.create_user(user=user, db=db)
     return await _services.create_token(user=nw_user)
+
+@app.post('/login')
+async def login(form_data:OAuth2PasswordRequestForm=Depends(),
+                db:_orm.Session=Depends(_services.get_db))
+    pass
 
 
 if __name__ == "__main__":
