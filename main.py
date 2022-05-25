@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.post("/users")
 async def register_user(
-        user: _schemas.UserRequest, db: _orm.Session = Depends(_services.get_db())
+    user: _schemas.UserRequest, db: _orm.Session = Depends(_services.get_db)
 ):
     db_user = await _services.get_user_by_email(email=user.email, db=db)
     if db_user:

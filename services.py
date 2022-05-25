@@ -53,10 +53,10 @@ async def create_user(user: _schemas.UserRequest, db: _orm.Session):
 
 async def create_token(user: _models.UserModel):
     # user model to user schema
-    user_schema = _schemas.UserBase.from_orm(user)
+    user_schema = _schemas.UserResponse.from_orm(user)
     # convert obj to dictionary
     user_dict = user_schema.dict()
-    del user_dict['created_at']
+    del user_dict["created_at"]
 
     token = _jwt.encode(user_dict, _env.JWT_SECRET)
 

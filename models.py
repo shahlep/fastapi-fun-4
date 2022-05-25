@@ -16,7 +16,7 @@ class UserModel(_database.Base):
         _sqlalchemy.DateTime, default=_datetime.datetime.utcnow()
     )
     # relationship
-    posts = _orm.relationship("Post", back_populates="user")
+    posts = _orm.relationship("PostModel", back_populates="user")
 
     # password verification
     def password_verification(self, password: str):
@@ -36,4 +36,4 @@ class PostModel(_database.Base):
     )
 
     # Relationship
-    user = _orm.relationship("User", back_populates="posts")
+    user = _orm.relationship("UserModel", back_populates="posts")
