@@ -19,8 +19,8 @@ class UserModel(_database.Base):
     posts = _orm.relationship("PostModel", back_populates="user")
 
     # password verification
-    def password_verification(self, password: str):
-        return _hash.bcrypt(password, self.password_hash)
+    def password_verification(self,password:str):
+        return _hash.bcrypt(password,self.password_hash)
 
 
 class PostModel(_database.Base):

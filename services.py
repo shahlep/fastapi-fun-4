@@ -70,7 +70,7 @@ async def login(email: str, password: str, db: _orm.Session):
     if not db_user:
         return False
     # return False if no user with given password found
-    if not db_user.password_verification(password=password):
+    if not db_user.password_verification(password):
         return False
 
     return db_user
