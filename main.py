@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status, security
+from fastapi import FastAPI, Depends, HTTPException, status, security,Form
 import uvicorn
 import sqlalchemy.orm as _orm
 
@@ -42,3 +42,7 @@ async def login(
 
 """if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)"""
+
+@app.post('/loginUser')
+def login(username:str=Form(...), password:str=Form(...)):
+    return {'username':username}
